@@ -19,9 +19,8 @@ AIPROJECT_CONNECTION_STRING = os.getenv("AIPROJECT_CONNECTION_STRING")
 AGENT_ID = os.getenv("AGENT_ID")
 
 # Create an instance of the AIProjectClient using DefaultAzureCredential
-project_client = AIProjectClient.from_connection_string(
-    conn_str=AIPROJECT_CONNECTION_STRING, credential=DefaultAzureCredential()
-)
+# project_client = AIProjectClient(endpoint=AIPROJECT_CONNECTION_STRING, credential=DefaultAzureCredential())
+project_client = AIProjectClient.from_connection_string(conn_str=AIPROJECT_CONNECTION_STRING, credential=DefaultAzureCredential())
 
 
 # Chainlit setup
@@ -30,6 +29,7 @@ async def on_chat_start():
     # Create a thread for the agent
     if not cl.user_session.get("thread_id"):
         thread = project_client.agents.create_thread()
+        # thread = project_client.agents.create_thread_and_run(agent_id=AGENT_ID)
 
         cl.user_session.set("thread_id", thread.id)
         print(f"New Thread ID: {thread.id}")

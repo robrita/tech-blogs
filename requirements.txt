@@ -1,4 +1,4 @@
 chainlit
 python-dotenv
-azure-ai-projects
+azure-ai-projects==1.0.0b7
 azure-identity
